@@ -145,3 +145,28 @@ button,input,select{font:inherit}
 /* --- BETA 1.1: zasięg paginowanego wyszukiwania --- */
 .smartline .precisionLabel{flex:0 0 auto}
 @media(max-width:980px){.smartline{flex-wrap:wrap;row-gap:7px}.smartline .precisionLabel{margin-left:0}}
+
+
+/* --- WEB BETA 2.2: wsparcie projektu --- */
+.support-btn,.back-btn{display:inline-flex;align-items:center;gap:7px;height:32px;padding:0 11px;border:1px solid #315747;border-radius:8px;background:#0f1916;color:#9fd9c2;text-decoration:none;font-size:9px;font-weight:800;letter-spacing:.02em;transition:border-color .14s,background .14s,color .14s,transform .14s}
+.support-btn span{color:#65f0ba;font-size:11px}
+.support-btn:hover,.back-btn:hover{border-color:#4b9b7e;background:#12211c;color:#d5f5e8;transform:translateY(-1px)}
+.support-brand{text-decoration:none;color:inherit}
+.support-shell{width:min(100% - 28px,900px);margin:0 auto;padding:58px 0 70px}
+.support-card{padding:38px 42px;text-align:center;box-shadow:0 24px 70px #00000038}
+.support-heart{width:58px;height:58px;margin:0 auto 15px;border:1px solid #3d7865;border-radius:17px;background:#0e1d18;display:grid;place-items:center;color:#65f0ba;font-size:24px;box-shadow:0 0 28px #65f0ba12}
+.support-card h1{margin:8px 0 13px;font-size:34px;line-height:1.08;color:#e3eaf0;letter-spacing:-.035em}
+.support-card h1 em{font-style:normal;color:#65f0ba}
+.support-lead{max-width:700px;margin:0 auto;color:#8999aa;font-size:12px;line-height:1.7}
+.support-points{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:28px 0}
+.support-points>div{min-height:105px;padding:16px;border:1px solid #283744;border-radius:11px;background:#0d141a;display:flex;flex-direction:column;justify-content:center;gap:6px}
+.support-points b{font-size:11px;color:#d2dde7}
+.support-points span{font-size:9px;line-height:1.45;color:#718296}
+.support-cta{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:44px;padding:0 20px;border:1px solid #4b9b7e;border-radius:10px;background:#10231c;color:#bdf0dc;text-decoration:none;font-size:11px;font-weight:850;box-shadow:0 0 24px #65f0ba10}
+.support-cta:hover{background:#143127;border-color:#65caa7;color:#effff8}
+.support-coming{max-width:620px;margin:0 auto;padding:14px 16px;border:1px dashed #405064;border-radius:10px;background:#0b1218;display:flex;flex-direction:column;gap:4px}
+.support-coming b{font-size:10px;color:#b9c7d5}
+.support-coming span{font-size:9px;line-height:1.5;color:#6e7f91}
+.support-note{max-width:650px;margin:24px auto 0;color:#596979;font-size:9px;line-height:1.55}
+footer a{color:#739b8c;text-decoration:none}footer a:hover{color:#65f0ba}
+@media(max-width:760px){.support-points{grid-template-columns:1fr}.support-card{padding:28px 20px}.support-card h1{font-size:28px}.back-btn{display:none}}
