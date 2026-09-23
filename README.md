@@ -1,4 +1,4 @@
-# 3D Model Hunter — WEB BETA 2.1 / Render Free
+# 3D Hunter — WEB BETA 2.1 / Render Free
 
 Ta paczka jest przygotowana specjalnie do darmowego wdrożenia na Render.
 
