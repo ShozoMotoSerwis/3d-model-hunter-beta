@@ -9,7 +9,6 @@ services:
     healthCheckPath: /api/health
     domains:
       - 3dhunter.shozo.pl
-      - hunter3d.shozo.pl
     autoDeployTrigger: commit
     envVars:
       - key: HUNTER_TRUST_PROXY
