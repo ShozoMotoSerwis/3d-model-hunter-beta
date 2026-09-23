@@ -8,6 +8,7 @@ services:
     startCommand: gunicorn --bind 0.0.0.0:$PORT --workers 1 --threads 4 --timeout 240 --graceful-timeout 30 --access-logfile - --error-logfile - app:app
     healthCheckPath: /api/health
     domains:
+      - 3dhunter.shozo.pl
       - hunter3d.shozo.pl
     autoDeployTrigger: commit
     envVars:
