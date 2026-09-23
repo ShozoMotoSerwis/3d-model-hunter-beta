@@ -1,0 +1,33 @@
+3D MODEL HUNTER — WEB BETA 2.1 / RENDER FREE
+
+CEL:
+Uruchomić Huntera za 0 zł jako publiczną stronę internetową.
+
+NAJPROSTSZA DROGA:
+1. Załóż darmowe konto GitHub, jeśli jeszcze go nie masz.
+2. Utwórz nowe repozytorium, np. 3d-model-hunter-beta.
+3. Rozpakuj tę paczkę i wgraj CAŁĄ jej zawartość do głównego katalogu repozytorium.
+   Ważne: render.yaml musi leżeć w katalogu głównym repozytorium.
+4. Załóż konto / zaloguj się na https://render.com
+5. Dashboard -> New -> Blueprint.
+6. Połącz konto GitHub i wybierz repozytorium Huntera.
+7. Render wykryje render.yaml. Zatwierdź utworzenie usługi.
+8. Poczekaj na pierwszy build/deploy.
+9. Po udanym deployu dostaniesz adres w stylu:
+   https://3d-model-hunter-beta.onrender.com
+
+UWAGA O DARMOWYM PLANIE:
+- po 15 minutach bez ruchu aplikacja zasypia; pierwszy start po przerwie może potrwać około minuty,
+- darmowy plan ma 512 MB RAM, dlatego w tej wersji wyłączony jest serwerowy Chromium/Selenium,
+- zwykłe wyszukiwanie i Smart Keywords działają; ciężkie przeglądanie stron przez headless browser zostawiamy na później / płatny serwer,
+- dane lokalne/cache nie są trwałe po restarcie serwisu.
+
+PRYWATNA BETA — OPCJONALNIE:
+W Render -> Service -> Environment dodaj:
+HUNTER_BETA_USER = dowolny_login
+HUNTER_BETA_PASSWORD = mocne_haslo
+Po zapisaniu Render wykona redeploy, a strona będzie wymagała loginu i hasła.
+
+AKTUALIZACJE:
+Każdy commit / upload nowych plików do repozytorium automatycznie uruchamia nowy deploy.
+Nie wysyłasz testerom żadnych nowych ZIP-ów — cały czas korzystają z tego samego adresu.

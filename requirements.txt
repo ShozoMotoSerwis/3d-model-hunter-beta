@@ -1,0 +1,4 @@
+Flask>=3.0,<4
+gunicorn>=23,<24
+ddgs>=9.0,<10
+deep-translator>=1.11,<2

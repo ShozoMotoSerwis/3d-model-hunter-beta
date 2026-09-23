@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>3D Model Hunter — WEB BETA 2.1</title>
+  <meta name="robots" content="noindex,nofollow">
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo-cube"></div>
+      <div><strong>3D MODEL HUNTER</strong><small>WEB BETA 2.1</small></div>
+    </div>
+    <div class="topactions">
+      <div class="uiscale" title="Najedź tutaj i użyj rolki myszy, aby skalować interfejs">
+        <span class="uiscale-aa" aria-hidden="true">Aa</span>
+        <input id="uiScale" type="range" min="90" max="150" step="5" value="115" tabindex="-1" aria-label="Wskaźnik skali interfejsu" aria-hidden="true">
+        <button id="uiScaleValue" type="button" title="Kliknij, aby wrócić do 115%">115%</button>
+        <span class="uiscale-wheel">MOUSE WHEEL</span>
+      </div>
+      <div class="status"><i></i> ONLINE • BETA</div>
+    </div>
+  </header>
+
+  <main class="shell">
+    <section class="hero">
+      <div>
+        <div class="eyebrow">WYSZUKIWARKA MODELI 3D</div>
+        <h1>Znajdź część. <em>Nie zgaduj słowa.</em></h1>
+        <p>Tłumaczenie PL → EN + synonimy techniczne + wiele bibliotek naraz.</p>
+      </div>
+
+      <div class="searchbox">
+        <div class="searchrow">
+          <div class="searchicon">⌕</div>
+          <input id="query" autocomplete="off" spellcheck="false" placeholder="np. zawias suszarki do ubrań Vileda" />
+          <button id="searchBtn"><span>Szukaj</span><b>↵</b></button>
+        </div>
+        <div class="smartline">
+          <label class="toggle"><input id="smart" type="checkbox" checked><span></span> Smart Keywords</label>
+          <span class="smartdesc">tłumaczenie + bliskoznaczne określenia techniczne</span>
+          <label class="precisionLabel">Zasięg
+            <select id="depthSelect" title="Szybki używa lekkich konektorów. Standard i Pełny mogą dodatkowo użyć przeglądarki uruchomionej na serwerze Huntera.">
+              <option value="80">Szybki</option>
+              <option value="300" selected>Standard</option>
+              <option value="1000">Pełny</option>
+            </select>
+          </label>
+          <label class="precisionLabel">Trafność
+            <select id="precisionSelect">
+              <option value="strict">Dokładna</option>
+              <option value="balanced" selected>Zbalansowana</option>
+              <option value="wide">Szeroka</option>
+            </select>
+          </label>
+          <button id="demoBtn" class="ghost">demo</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="controlgrid">
+      <div class="panel sources-panel">
+        <div class="paneltitle"><span>PRZESZUKIWANE ŹRÓDŁA</span><button id="allSources">wszystkie</button></div>
+        <div id="sources" class="sourcecards">
+          {% for id, s in sources.items() %}
+          <label class="sourcecard" data-source="{{id}}" title="{{s.name}}">
+            <input type="checkbox" value="{{id}}" checked>
+            <span class="sourcecard-inner">
+              <span class="sourcecard-logo">
+                <img src="https://{{s.domain}}/favicon.ico" data-logo-backup="https://www.google.com/s2/favicons?sz=64&domain={{s.domain}}" alt="{{s.name}}">
+                <b>{{s.mark}}</b>
+              </span>
+              <span class="sourcecard-copy">
+                <strong>{{s.name}}</strong>
+                <small>{{s.domain}}</small>
+              </span>
+              <span class="sourcecard-count">—</span>
+            </span>
+          </label>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="panel formats-panel">
+        <div class="paneltitle"><span>FORMAT PLIKU</span><small>opcjonalnie • dokładny filtr</small></div>
+        <div id="formats" class="formatchips">
+          <label><input type="checkbox" value="stl"><span>.STL</span></label>
+          <label><input type="checkbox" value="3mf"><span>.3MF</span></label>
+          <label><input type="checkbox" value="step"><span>.STEP</span></label>
+          <label><input type="checkbox" value="obj"><span>.OBJ</span></label>
+        </div>
+        <div class="formatnote">Wybrane formaty są filtrem <b>OR</b>: model musi mieć co najmniej jeden z nich. Hunter weryfikuje pliki tam, gdzie źródło udostępnia metadane.</div>
+      </div>
+    </section>
+
+    <section id="smartPanel" class="panel smartpanel hidden">
+      <div class="smartpanel-head">
+        <div class="paneltitle"><span>SMART KEYWORDS</span><small id="translationMode"></small></div>
+        <button id="toggleSmartDetails" class="textbtn">zwiń</button>
+      </div>
+      <div id="smartDetails">
+        <div class="translation"><span>PL</span><b id="originalQ"></b><i>→</i><span>EN</span><b id="translatedQ"></b></div>
+        <div id="anchors" class="anchors"></div>
+        <div id="concepts" class="concepts"></div>
+        <div id="variants" class="variants"></div>
+      </div>
+    </section>
+
+    <section id="resultSection" class="results hidden">
+      <div class="resultlayout">
+        <aside class="filters panel">
+          <div class="filtertitle">FILTRUJ WYNIKI</div>
+          <div class="filtergroup">
+            <div class="filterlabel">Źródło</div>
+            <div id="resultSourceFilters" class="filterchecks"></div>
+          </div>
+          <div class="filtergroup compact">
+            <label class="checkrow"><input id="hideNoImage" type="checkbox"><span>Tylko z miniaturą</span></label>
+          </div>
+          <button id="clearFilters" class="clearbtn">Wyczyść filtry</button>
+        </aside>
+
+        <div class="resultmain">
+          <div class="resulthead">
+            <div class="resultsummary">
+              <div><span id="resultCount">0 wyników</span><small id="elapsed"></small></div>
+              <details id="sourceHealth" class="sourcehealth hidden">
+                <summary><i></i><span id="sourceHealthLabel">Źródła</span><b>⌄</b></summary>
+                <div id="sourceHealthDetails" class="sourcehealth-details"></div>
+              </details>
+            </div>
+            <div class="toolbar">
+              <label>Sortuj:
+                <select id="sortSelect">
+                  <option value="relevance">Trafność</option>
+                  <option value="downloads">Najwięcej pobrań</option>
+                  <option value="likes">Najwięcej polubień</option>
+                  <option value="newest">Najnowsze</option>
+                  <option value="name">Nazwa A–Z</option>
+                  <option value="source">Źródło</option>
+                </select>
+              </label>
+              <button id="densityBtn" class="iconbtn" title="Zmień gęstość siatki">▦</button>
+            </div>
+          </div>
+
+          <div id="errorBox" class="errorbox hidden"></div>
+          <div id="resultGrid" class="resultgrid"></div>
+          <button id="showMoreBtn" class="showmore hidden">Pokaż więcej wyników</button>
+
+          <details class="directbox">
+            <summary>Wyszukiwarki źródłowe <small>awaryjne / pełna lista</small></summary>
+            <div id="directLinks" class="directlinks"></div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section id="emptyState" class="emptyState">
+      <div class="radar"><div></div><div></div><i></i><b></b></div>
+      <strong>Gotowy do polowania.</strong>
+      <span>Wpisz nazwę części, numer OEM, model urządzenia albo opisz element po polsku.</span>
+    </section>
+  </main>
+
+  <footer>3D Model Hunter • WEB BETA 2.1 • działa w przeglądarce • wyszukiwanie wykonywane na serwerze</footer>
+  <script src="/static/app.js"></script>
+</body>
+</html>

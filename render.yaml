@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: 3d-model-hunter-beta
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn --bind 0.0.0.0:$PORT --workers 1 --threads 4 --timeout 240 --graceful-timeout 30 --access-logfile - --error-logfile - app:app
+    healthCheckPath: /api/health
+    autoDeployTrigger: commit
+    envVars:
+      - key: HUNTER_TRUST_PROXY
+        value: "1"
+      - key: HUNTER_BROWSER
+        value: disabled
+      - key: HUNTER_SEARCHES_PER_10MIN
+        value: "30"

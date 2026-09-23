@@ -1,0 +1,19 @@
+3D MODEL HUNTER — WEB BETA 2.0
+
+Dla użytkownika końcowego:
+- niczego nie instaluje,
+- wchodzi tylko na adres WWW,
+- działa w Chrome / Edge / Firefox,
+- ustawienie skali interfejsu zapamiętuje przeglądarka,
+- zapytanie można udostępnić linkiem ?q=...
+
+Dla administratora:
+- Flask + Gunicorn,
+- gotowy Dockerfile,
+- opcjonalny headless Chromium po stronie serwera,
+- docker-compose do testu,
+- docker-compose.public + Caddy do domeny i automatycznego HTTPS,
+- opcjonalne hasło beta,
+- prosty rate-limit wyszukiwania.
+
+UWAGA: migracja do WWW nie rozwiązuje jeszcze automatycznie problemu kompletności wyników ze źródeł. Rdzeń wyszukiwania pochodzi z gałęzi 1.3 i będzie dalej rozwijany już w wersji webowej.
