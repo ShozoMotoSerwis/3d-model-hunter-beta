@@ -31,7 +31,7 @@ app.config["MAX_CONTENT_LENGTH"] = 64 * 1024
 if os.environ.get("HUNTER_TRUST_PROXY", "1") == "1":
     app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1)
 
-WEB_VERSION = "2.1.0-beta-render-free"
+WEB_VERSION = "2.3.0-beta-render-free"
 
 # Web Beta 2.1 Render Free: lightweight server-side aggregation. Browser automation is disabled on the free tier by default.
 # Native adapters return far more results with proper thumbnails in one request.
@@ -123,7 +123,7 @@ def _web_guard():
     if request.path == "/api/health":
         return None
     if not _basic_auth_ok():
-        return Response("3D Model Hunter Web Beta", 401, {"WWW-Authenticate": 'Basic realm="3D Model Hunter Beta"'})
+        return Response("3D Hunter Web Beta", 401, {"WWW-Authenticate": 'Basic realm="3D Hunter Beta"'})
     if request.path == "/api/search" and not _rate_allowed("search", int(os.environ.get("HUNTER_SEARCHES_PER_10MIN", "40")), 600):
         return jsonify({"error": "Za dużo wyszukiwań z tego adresu. Odczekaj chwilę i spróbuj ponownie."}), 429
     return None
@@ -1375,7 +1375,7 @@ def index():
 @app.get("/support")
 def support():
     support_url = (os.environ.get("HUNTER_SUPPORT_URL") or "").strip()
-    support_label = (os.environ.get("HUNTER_SUPPORT_LABEL") or "Wesprzyj Hunter3D").strip()
+    support_label = (os.environ.get("HUNTER_SUPPORT_LABEL") or "Wesprzyj 3D Hunter").strip()
     return render_template("support.html", support_url=support_url, support_label=support_label)
 
 
@@ -1485,7 +1485,7 @@ def api_thumbnail():
 
 @app.get("/api/health")
 def health():
-    return jsonify({"ok": True, "product": "3D Model Hunter", "version": WEB_VERSION, "mode": "web", "sources": list(SOURCES)})
+    return jsonify({"ok": True, "product": "3D Hunter", "version": WEB_VERSION, "mode": "web", "sources": list(SOURCES)})
 
 
 
