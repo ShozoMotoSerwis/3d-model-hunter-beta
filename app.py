@@ -1372,6 +1372,13 @@ def index():
     return render_template("index.html", sources=SOURCES)
 
 
+@app.get("/support")
+def support():
+    support_url = (os.environ.get("HUNTER_SUPPORT_URL") or "").strip()
+    support_label = (os.environ.get("HUNTER_SUPPORT_LABEL") or "Wesprzyj Hunter3D").strip()
+    return render_template("support.html", support_url=support_url, support_label=support_label)
+
+
 @app.get("/api/expand")
 def expand():
     q = (request.args.get("q") or "").strip()
